@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import Button from './Button';
+import Checkbox from './Checkbox';
+import Input from './Input';
+import Textarea from './Textarea';
 
 export default class Form extends Component {
   constructor() {
@@ -8,7 +12,7 @@ export default class Form extends Component {
       email: '',
       password: '',
       textarea: '',
-      signed: false,
+      checked: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,59 +28,27 @@ export default class Form extends Component {
   }
 
   render() {
-    const { email, password, textarea, signed } = this.state;
+    const { email, password, textarea, checked } = this.state;
 
     return (
       <form>
         <div className="form-control">
-          <label htmlFor="email">
-            Email
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              required 
-              value={email}
-              onChange={this.handleChange}
-            />
-          </label>
+          <Input value={email} name="email" handleChange={this.handleChange} />
         </div>
 
         <div className="form-control">
-          <label htmlFor="password">
-            Password
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              required
-              value={password} 
-              onChange={this.handleChange}
-            />
-          </label>
+          <Input value={password} name="password" handleChange={this.handleChange} />
         </div>
 
         <div className="form-control">
-          <textarea 
-            name="textarea"
-            value={textarea} 
-            onChange={this.handleChange}
-          />
+          <Textarea name="textarea" value={textarea} handleChange={this.handleChange} />
         </div>
 
         <div className="form-checkbox">
-          <label htmlFor="signed">
-            Keep Signed In
-            <input 
-              type="checkbox"
-              name="signed"
-              value={signed} 
-              onChange={this.handleChange}
-            />
-          </label>
+          <Checkbox name="checkbox" checked={checked} handleChange={this.handleChange} />
         </div>
 
-        <button disabled={!signed} className="btn">Login</button>
+        <Button checked={checked} />
       </form>
     )
   }
