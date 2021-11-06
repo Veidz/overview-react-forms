@@ -10,9 +10,22 @@ export default class Form extends Component {
       textarea: '',
       signed: false,
     }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      [name]: value
+    })
   }
 
   render() {
+    const { email, password, textarea, signed } = this.state;
+
     return (
       <form>
         <div className="form-control">
@@ -23,6 +36,8 @@ export default class Form extends Component {
               id="email" 
               name="email" 
               required 
+              value={email}
+              onChange={this.handleChange}
             />
           </label>
         </div>
@@ -30,14 +45,22 @@ export default class Form extends Component {
         <div className="form-control">
           <label htmlFor="password">
             Password
-            <input type="password" id="password" name="password" required />
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required
+              value={password} 
+              onChange={this.handleChange}
+            />
           </label>
         </div>
 
         <div className="form-control">
           <textarea 
             name="textarea"
-            value=""
+            value={textarea} 
+            onChange={this.handleChange}
           />
         </div>
 
@@ -47,11 +70,13 @@ export default class Form extends Component {
             <input 
               type="checkbox"
               name="signed"
+              value={signed} 
+              onChange={this.handleChange}
             />
           </label>
         </div>
 
-        <button className="btn">Login</button>
+        <button disabled={!signed} className="btn">Login</button>
       </form>
     )
   }
